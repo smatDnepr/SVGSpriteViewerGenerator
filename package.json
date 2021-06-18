@@ -3,8 +3,8 @@
 	"publisher": "smatDnepr",
 	"displayName": "SVG Sprite Generator",
 	"description": "Generate svg-sprite from many svg-files",
-	"icon": "https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/logoSmatDnepr.jpg",
-	"version": "0.0.1",
+	"icon": "images/logoSmatDnepr.jpg",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.57.0"
 	},
@@ -35,7 +35,6 @@
 		"lint": "eslint .",
 		"pretest": "npm run lint",
 		"test": "node ./test/runTest.js",
-
 		"dev": "webpack --mode development",
 		"prod": "webpack --mode production",
 		"watch": "webpack --mode development --watch",
