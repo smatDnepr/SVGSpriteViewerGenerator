@@ -11,10 +11,6 @@ You can use it like this:
 </svg>
 ```
 
-For compatibility with old browsers it is recommended to include svg4everybody
-https://github.com/jonathantneal/svg4everybody
-
-
 ![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/feature-1.png)
 
 ![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/feature-2.png)
@@ -22,9 +18,12 @@ https://github.com/jonathantneal/svg4everybody
 
 ## Recommendation
 
-To view the sprite, I recommend using this plugin:
+For compatibility with old browsers it is recommended to include svg4everybody
+https://github.com/jonathantneal/svg4everybody
 
+To view the sprite in VSCode, I recommend using this plugin
 https://marketplace.visualstudio.com/items?itemName=DevEscalus.svg-sprites-viewer
+
 
 ## Extension Settings
 

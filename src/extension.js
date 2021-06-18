@@ -24,12 +24,11 @@ const main = (fsPath) => {
 	}
 
 	svgFiles.forEach((path, idx) => {
-		let fileName =  path.replace(/.+[\\/](.*)\.svg/gi, '$1').replace(/\s/gi, '-');
+		let fileName  = path.replace(/.+[\\/](.*)\.svg/gi, '$1').replace(/\s/gi, '-');
 		let svgString = fs.readFileSync(path).toString();
-		let svgTag = svgString.replace(/.*(<svg.+<\/svg>).*/gis, '$1');
-		let viewBox = svgTag.replace(/.*viewBox\s?=["]([^"]+)["].*/gis, '$1');
-		let $ = cheerio.load(svgTag);
-
+		let svgTag    = svgString.replace(/.*(<svg.+<\/svg>).*/gis, '$1');
+		let viewBox   = svgTag.replace(/.*viewBox\s?=["]([^"]+)["].*/gis, '$1');
+		let $         = cheerio.load(svgTag);
 
 		// если в текущем файле есть symbol - значит это уже спрайт и мы его пропускаем
 		if ( svgString.toLowerCase().indexOf("symbol".toLowerCase()) > -1 ) return false;
@@ -87,15 +86,6 @@ const main = (fsPath) => {
 		// подпгнать все теги к левому краю
 		symbolInnerHtml = symbolInnerHtml.replace(/\n\s*</gs, '\n<');
 
-		//symbolInnerHtml = symbolInnerHtml.replace(/></gm, '>\n<');
-		// symbolInnerHtml = symbolInnerHtml.replace(/^(\t)/mg, '		');
-		// symbolInnerHtml = symbolInnerHtml.replace(/^(\t)?(<)/mg, '		$1$2');
-		// symbolInnerHtml = symbolInnerHtml.replace(/^\t\t\./mg, '			.');
-		// symbolInnerHtml = symbolInnerHtml.replace(/\n\s*"/gm, ' "');
-
-
-
-
 		// формируем symbol
 		let symbol = '<symbol id="' + fileName + '" viewBox="' + viewBox + '" xmlns="http://www.w3.org/2000/svg">'
 					+ symbolInnerHtml
@@ -104,19 +94,17 @@ const main = (fsPath) => {
 		symbolList.push(symbol);
 	});
 
-
 	let sprite = '<svg width="0" height="0" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="visibility: hidden; position: absolute;" aria-hidden="true">'
-					+ '\n\n'
-					+ symbolList.join("\n\n")
-					+ '\n\n'
+				+ '\n\n'
+				+ symbolList.join("\n\n")
+				+ '\n\n'
 				+ '</svg>';
 
 	fs.writeFile(curDir + '/_sprite.svg', sprite, function (err) {
 		if (err) throw err;
 		vscode.window.showInformationMessage('File "_sprite.svg" saved to the current folder');
-	  });
+	});
 }
-
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
