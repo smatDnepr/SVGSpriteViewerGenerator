@@ -10,6 +10,7 @@ Fast generation of svg sprite from a group of svg files
 ## Recommendation
 
 To view the sprite, I recommend using this plugin:
+
 https://marketplace.visualstudio.com/items?itemName=DevEscalus.svg-sprites-viewer
 
 ## Extension Settings
