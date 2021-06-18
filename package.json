@@ -1,9 +1,9 @@
 {
-	"name": "svg-sprite-generate",
+	"name": "svg-sprite-generator",
 	"publisher": "smatDnepr",
 	"displayName": "SVG Sprite Generator",
 	"description": "Generate svg-sprite from many svg-files",
-	"icon": "images/logoSmatDnepr.jpg",
+	"icon": "https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/logoSmatDnepr.jpg",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.57.0"
