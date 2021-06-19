@@ -19,6 +19,7 @@ In settings you can:
 * set maximum compression output file
 
 
+
 ## Screenshots
 
 ![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/feature-1.png)
