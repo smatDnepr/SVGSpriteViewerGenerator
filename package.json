@@ -1,6 +1,11 @@
 {
 	"name": "svg-sprite-generator",
 	"publisher": "smatDnepr",
+	"author": {
+		"name": "smatDnepr",
+		"email": "smat.dnepr@gmail.com"
+	},
+	"repository": "https://github.com/smatDnepr/SVG-Sprite-Generator",
 	"displayName": "SVG Sprite Generator",
 	"description": "Generate svg-sprite from many svg-files",
 	"icon": "images/logoSmatDnepr.jpg",
@@ -33,8 +38,8 @@
 		"configuration": {
 			"title": "SVG Sprite Generator",
 			"properties": {
-				"svgSpriteGenerator.outputFileName": {
-					"type": ["string", "null"],
+				"svgSpriteGenerator.output.fileName": {
+					"type": "string",
 					"default": "_sprite",
 					"description": "SVG sprite output filename without extension, eg: '_sprite' or 'sprite'"
 				}

@@ -7,7 +7,7 @@ const main = (fsPath) => {
 	const SAPARATOR  = '__';
 	const curDir     = fsPath.replace(/\\/g, '/');
 	const filesInDir = fs.readdirSync(curDir);
-	const FILE_NAME  = vscode.workspace.getConfiguration('svgSpriteGenerator')['outputFileName'].replace(/[^-_.A-Za-z0-9]/g, '');
+	const FILE_NAME  = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['fileName'].replace(/[^-_.A-Za-z0-9]/g, '');
 
 	// если фалы лежат в 'node_modules' - не обрабатываем и выходим
 	if (fsPath.indexOf('node_modules') > -1) return;
