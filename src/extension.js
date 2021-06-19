@@ -2,12 +2,13 @@ const vscode = require('vscode');
 const fs     = require('fs');
 
 const main = (fsPath) => {
-	const svgFiles   = [];
-	const symbolList = [];
-	const SAPARATOR  = '__';
-	const curDir     = fsPath.replace(/\\/g, '/');
-	const filesInDir = fs.readdirSync(curDir);
-	const FILE_NAME  = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['fileName'].replace(/[^-_.A-Za-z0-9]/g, '');
+	const svgFiles    = [];
+	const symbolList  = [];
+	const SAPARATOR   = '__';
+	const curDir      = fsPath.replace(/\\/g, '/');
+	const filesInDir  = fs.readdirSync(curDir);
+	const FILE_NAME   = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['fileName'].replace(/[^-_.A-Za-z0-9]/g, '');
+	const MAX_COMPRES = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['maximumCompression'];
 
 	// если фалы лежат в 'node_modules' - не обрабатываем и выходим
 	if (fsPath.indexOf('node_modules') > -1) return;
@@ -87,11 +88,19 @@ const main = (fsPath) => {
 	});
 
 
-	let sprite = '<svg width="0" height="0" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="visibility: hidden; position: absolute;" aria-hidden="true">'
+	let sprite = '<svg width="0" height="0" fill="none" style="visibility: hidden; position: absolute;" aria-hidden="true">'
 				+ '\n\n'
 				+ symbolList.join("\n\n")
 				+ '\n\n'
 				+ '</svg>';
+
+
+	// если указано максимальное сжатие
+	if ( MAX_COMPRES ) {
+		sprite = sprite.replace(/([\r\n])\s*/gs, '$1');
+		sprite = sprite.replace(/[\r\n]+/gs, '');
+	}
+
 
 	fs.writeFile(curDir + '/' + FILE_NAME + '.svg', sprite, function (err) {
 		if (err) throw err;

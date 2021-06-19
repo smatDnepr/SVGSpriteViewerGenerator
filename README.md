@@ -11,19 +11,31 @@ You can use it like this:
 </svg>
 ```
 
+
+## Extension Settings
+
+In settings you can:
+*  set output file name
+* set maximum compression output file
+
+
+## Screenshots
+
 ![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/feature-1.png)
 
 ![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/feature-2.png)
 
+![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/feature-3.png)
+
 
 ## Recommendation
 
-For compatibility with old browsers it is recommended to include svg4everybody
+For compatibility with old browsers it is recommended to include svg4everybody  
 https://github.com/jonathantneal/svg4everybody
 
-To view the sprite in VSCode, I recommend using this plugin
+To view the sprite in VSCode, I recommend using this plugin  
 https://marketplace.visualstudio.com/items?itemName=DevEscalus.svg-sprites-viewer
 
 
-## Extension Settings
+
 
