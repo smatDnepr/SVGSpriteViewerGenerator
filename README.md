@@ -12,21 +12,22 @@ You can use it like this:
 ```
 
 
-## Extension Settings
-
-In settings you can:
-*  set output file name
-* set maximum compression output file
-
-
-
 ## Screenshots
 
 ![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/feature-1.png)
 
 ![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/feature-2.png)
 
+
+
+## Extension Settings
+
+In settings you can:
+* set output file name
+* set maximum compression output file
+
 ![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/feature-3.png)
+
 
 
 ## Recommendation
