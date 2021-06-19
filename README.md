@@ -7,7 +7,7 @@ For example, if the file name is "ico-email.svg", then symbol id="ico-email".
 You can use it like this:
 ```
 <svg class="ico">
-	<use xlink:href="/images/_sprite.svg#ico-email"></use>
+    <use xlink:href="/images/_sprite.svg#ico-email"></use>
 </svg>
 ```
 

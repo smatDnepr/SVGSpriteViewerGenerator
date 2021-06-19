@@ -1,15 +1,13 @@
 const vscode = require('vscode');
-const fs = require('fs');
-const cheerio = require('cheerio');
-
+const fs     = require('fs');
 
 const main = (fsPath) => {
-	const svgFiles = [];
+	const svgFiles   = [];
 	const symbolList = [];
-	const SAPARATOR = '__';
-
-	const curDir = fsPath.replace(/\\/g, '/');
+	const SAPARATOR  = '__';
+	const curDir     = fsPath.replace(/\\/g, '/');
 	const filesInDir = fs.readdirSync(curDir);
+	const FILE_NAME  = vscode.workspace.getConfiguration('svgSpriteGenerator')['outputFileName'].replace(/[^-_.A-Za-z0-9]/g, '');
 
 	// если фалы лежат в 'node_modules' - не обрабатываем и выходим
 	if (fsPath.indexOf('node_modules') > -1) return;
@@ -21,50 +19,45 @@ const main = (fsPath) => {
 
 	if ( ! svgFiles.length ) {
 		vscode.window.showInformationMessage('SVG files not found!');
+		return false;
 	}
 
 	svgFiles.forEach((path, idx) => {
 		let fileName  = path.replace(/.+[\\/](.*)\.svg/gi, '$1').replace(/\s/gi, '-');
 		let svgString = fs.readFileSync(path).toString();
-		let svgTag    = svgString.replace(/.*(<svg.+<\/svg>).*/gis, '$1');
-		let viewBox   = svgTag.replace(/.*viewBox\s?=["]([^"]+)["].*/gis, '$1');
-		let $         = cheerio.load(svgTag);
+		let svgHTML   = svgString.match(/<svg.+<\/svg>/gis) ? svgString.match(/<svg.+<\/svg>/gis)[0] : '';
+		let style     = svgString.match(/<style[^>].+<\/style>/gis) ? svgString.match(/<style[^>].+<\/style>/gis)[0] : '';
+		let viewBox   = svgString.replace(/.*viewBox\s?=["]([^"]+)["].*/gis, '$1');
+		let symbol    = '';
+
+		if ( !svgHTML.length || !viewBox.length ) return false;
 
 		// если в текущем файле есть symbol - значит это уже спрайт и мы его пропускаем
 		if ( svgString.toLowerCase().indexOf("symbol".toLowerCase()) > -1 ) return false;
 
 		// обрабатываем все css-классы данного SVG
-		if ( !!$('svg').find('style').length && !!$('svg').find('style').html().match(/([.\w]+)(\s*{)/isg).length ) {
-			$('svg').find('style').each(function() {
-				let svgHTML = $('svg').html();
-
-				let classList = $(this).html().match(/([.\w]+)(\s*{)/isg).map(item => {
-					return item.replace(/\s*{/gi, '');
-				});
-
-				if ( classList.length ) {
-					classList.forEach(item => {
-						let newClass = item + SAPARATOR + idx;
-						svgHTML = svgHTML.replace(`${item}{`, `${newClass}{`);
-						svgHTML = svgHTML.replace(`${item} {`, `${newClass}{`);
-						svgHTML = svgHTML.replace(new RegExp('class="' + item.slice(1) + '"', 'gis'), `class="${newClass.slice(1)}"`);
-					});
-					$('svg').html( svgHTML );
-				}
+		if ( style.length && style.match(/([.\w]+)(\s*{)/isg).length ) {
+			let classList = style.match(/([.\w]+)(\s*{)/isg).map(item => {
+				return item.replace(/\s*{/gi, '');
 			});
+			if ( classList.length ) {
+				classList.forEach(item => {
+					let newClass = item + SAPARATOR + idx;
+					svgHTML = svgHTML.replace(`${item}{`, `${newClass}{`);
+					svgHTML = svgHTML.replace(`${item} {`, `${newClass}{`);
+					svgHTML = svgHTML.replace(new RegExp('class="' + item.slice(1) + '"', 'gis'), `class="${newClass.slice(1)}"`);
+				});
+			}
 		}
 
 		// обрабатываем все css-ID данного SVG
 		// например тут: <rect id="SVGID_1_" x="3.5" y="1" width="17" height="22"></rect>
 		// и тут: <use xlink:href="#SVGID_1_" style="overflow:visible;"></use>
 		// и тут: <path d="M2000 0H-3V503H2000V0Z" fill="url(#paint0_linear)"/>
-		if ( !! $('svg').html().match(/\bid="[^"]+"/isg) ) {
-			let svgHTML = $('svg').html();
-
-			let idList = $('svg').html().match(/\bid="[^"]+"/isg).map(item =>
+		if ( !! svgHTML.match(/\bid="[^"]+"/isg) ) {
+			let idList = svgHTML.match(/\bid="[^"]+"/isg).map(item =>
 				item.replace(/id="|"/gi, '')
 			);
-
 			if ( idList.length ) {
 				idList.forEach(item => {
 					let newID = item + SAPARATOR + idx;
@@ -72,27 +65,27 @@ const main = (fsPath) => {
 					svgHTML = svgHTML.replace(new RegExp('"#' + item + '"', 'g'), `"#${newID}"`)
 					svgHTML = svgHTML.replace(new RegExp('url[(]#' + item + '[)]', 'g'), `url(#${newID})`);
 				});
-				$('svg').html( svgHTML );
 			}
 		}
 
-		// формируем отступы для symbol
-		let symbolInnerHtml = $('svg').html();
+		let symbolInnerHtml = svgHTML.replace(/.*<svg[^>]+>(.+)<\/svg>/gsi, '$1');
 
 		// убрать разрывы строки внутри path
-		symbolInnerHtml = symbolInnerHtml.replace(/\n\s*(\w)/g, ' $1');
-		symbolInnerHtml = symbolInnerHtml.replace(/\n\s*"/gm, ' "');
+		symbolInnerHtml = symbolInnerHtml.replace(/[\r\n]+\s*(\w)/g, '$1');
+		symbolInnerHtml = symbolInnerHtml.replace(/[\r\n]+\s*"/g, ' "');
+		symbolInnerHtml = symbolInnerHtml.replace(/"[\r\n]+\s*\/>/g, '"/>');
 
-		// подпгнать все теги к левому краю
-		symbolInnerHtml = symbolInnerHtml.replace(/\n\s*</gs, '\n<');
+		// подогнать все теги к левому краю
+		symbolInnerHtml = symbolInnerHtml.replace(/[\r\n]+\s*</gs, '\n<');
 
 		// формируем symbol
-		let symbol = '<symbol id="' + fileName + '" viewBox="' + viewBox + '" xmlns="http://www.w3.org/2000/svg">'
-					+ symbolInnerHtml
-					+ '</symbol>';
+		symbol = '<symbol id="' + fileName + '" viewBox="' + viewBox + '" xmlns="http://www.w3.org/2000/svg">'
+				+ symbolInnerHtml
+				+ '</symbol>';
 
 		symbolList.push(symbol);
 	});
+
 
 	let sprite = '<svg width="0" height="0" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="visibility: hidden; position: absolute;" aria-hidden="true">'
 				+ '\n\n'
@@ -100,9 +93,9 @@ const main = (fsPath) => {
 				+ '\n\n'
 				+ '</svg>';
 
-	fs.writeFile(curDir + '/_sprite.svg', sprite, function (err) {
+	fs.writeFile(curDir + '/' + FILE_NAME + '.svg', sprite, function (err) {
 		if (err) throw err;
-		vscode.window.showInformationMessage('File "_sprite.svg" saved to the current folder');
+		vscode.window.showInformationMessage(`File "${FILE_NAME}.svg" saved to the current folder`);
 	});
 }
 

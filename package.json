@@ -4,7 +4,7 @@
 	"displayName": "SVG Sprite Generator",
 	"description": "Generate svg-sprite from many svg-files",
 	"icon": "images/logoSmatDnepr.jpg",
-	"version": "0.0.2",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.57.0"
 	},
@@ -29,6 +29,16 @@
 					"command": "smat.svgSpriteGenerate"
 				}
 			]
+		},
+		"configuration": {
+			"title": "SVG Sprite Generator",
+			"properties": {
+				"svgSpriteGenerator.outputFileName": {
+					"type": ["string", "null"],
+					"default": "_sprite",
+					"description": "SVG sprite output filename without extension, eg: '_sprite' or 'sprite'"
+				}
+			}
 		}
 	},
 	"scripts": {
@@ -53,7 +63,5 @@
 		"webpack": "^5.39.1",
 		"webpack-cli": "^4.7.2"
 	},
-	"dependencies": {
-		"cheerio": "^1.0.0-rc.10"
-	}
+	"dependencies": {}
 }
