@@ -9,7 +9,7 @@
 	"displayName": "SVG Sprite Generator",
 	"description": "Generate svg-sprite from many svg-files",
 	"icon": "images/logoSmatDnepr.jpg",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"engines": {
 		"vscode": "^1.57.0"
 	},
@@ -79,5 +79,7 @@
 		"webpack": "^5.39.1",
 		"webpack-cli": "^4.7.2"
 	},
-	"dependencies": {}
+	"dependencies": {
+		"js-beautify": "^1.14.0"
+	}
 }

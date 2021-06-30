@@ -1,5 +1,6 @@
-const vscode = require('vscode');
-const fs     = require('fs');
+const vscode   = require('vscode');
+const fs       = require('fs');
+const beautify = require('js-beautify').html;
 
 const main = (fsPath) => {
 	const svgFiles    = [];
@@ -77,7 +78,7 @@ const main = (fsPath) => {
 		symbolInnerHtml = symbolInnerHtml.replace(/"[\r\n]+\s*\/>/g, '"/>');
 
 		// подогнать все теги к левому краю
-		symbolInnerHtml = symbolInnerHtml.replace(/[\r\n]+\s*</gs, '\n<');
+		//symbolInnerHtml = symbolInnerHtml.replace(/[\r\n]+\s*</gs, '\n<');
 
 		// формируем symbol
 		symbol = '<symbol id="' + fileName + '" viewBox="' + viewBox + '" xmlns="http://www.w3.org/2000/svg">'
@@ -87,12 +88,16 @@ const main = (fsPath) => {
 		symbolList.push(symbol);
 	});
 
-
 	let sprite = '<svg width="0" height="0" fill="none" style="visibility: hidden; position: absolute;" aria-hidden="true">'
-				+ '\n\n'
-				+ symbolList.join("\n\n")
-				+ '\n\n'
+				+ '\n'
+				+ symbolList.join("\n")
+				+ '\n'
 				+ '</svg>';
+
+
+    sprite = beautify(sprite, {
+        indent_size: 4,
+    });
 
 
 	// если указано максимальное сжатие
