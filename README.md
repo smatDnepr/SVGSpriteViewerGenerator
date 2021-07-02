@@ -34,8 +34,8 @@ In settings you can:
 For compatibility with old browsers it is recommended to include svg4everybody  
 https://github.com/jonathantneal/svg4everybody
 
-To view the sprite in VSCode, I recommend using this plugin
-https://marketplace.visualstudio.com/items?itemName=DevEscalus.svg-sprites-viewer  
+To view the sprite in VSCode, I recommend using this plugin  
+https://marketplace.visualstudio.com/items?itemName=DevEscalus.svg-sprites-viewer
 
 
 
