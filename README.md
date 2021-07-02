@@ -15,7 +15,7 @@ You can use it like this:
 
 ## Screenshots
 
-![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture.gif)
+![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture.gif)
 
 
 
