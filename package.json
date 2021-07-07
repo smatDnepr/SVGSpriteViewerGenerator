@@ -9,7 +9,7 @@
 	"displayName": "SVG Sprite Generator",
 	"description": "Generate svg-sprite from many svg-files",
 	"icon": "images/logo.png",
-	"version": "1.2.3",
+	"version": "1.2.4",
 	"engines": {
 		"vscode": "^1.57.0"
 	},
