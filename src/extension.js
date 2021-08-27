@@ -41,6 +41,7 @@ const main = (fsPath) => {
             let classList = style.match(/(\.[\w_-]+)(\s*{)/gis).map((item) => {
                 return item.replace(/\s*{/gi, '').replace(/^\./, '');
             });
+
             if (classList.length) {
                 classList.forEach((item) => {
                     let newClass = item + SEPARATOR + fileName;
@@ -49,6 +50,7 @@ const main = (fsPath) => {
                     svgHTML = svgHTML.replace(new RegExp(`class="${item}"`, 'gis'), `class="${newClass}"`);
                 });
             }
+
         } else {
             svgHTML = svgHTML.replace(/(\s?class=")([^"]+)("\s?)/gi, `$1$2${SEPARATOR}${fileName}$3`);
         }
