@@ -6,10 +6,10 @@
         "email": "smat.dnepr@gmail.com"
     },
     "repository": "https://github.com/smatDnepr/SVG-Sprite-Generator",
-    "displayName": "SVG Sprite Generator",
-    "description": "Generate svg-sprite from many svg-files",
+    "displayName": "SVG Sprite Generator and Viewer",
+    "description": "Generate svg-sprite from many svg-files and view sprite",
     "icon": "images/logo.png",
-    "version": "1.3.0",
+    "version": "2.0.0",
     "engines": {
         "vscode": "^1.57.0"
     },
@@ -20,10 +20,12 @@
         "svg",
         "sprite",
         "svg sprite",
-        "svg sprite generator"
+        "svg sprite generator",
+        "svg sprite viewer"
     ],
     "activationEvents": [
-        "onCommand:smat.svgSpriteGenerate"
+        "onCommand:smat.svgSpriteGenerate",
+        "onCommand:smat.svgSpriteViewer"
     ],
     "main": "./dist/extension.js",
     "contributes": {
@@ -31,18 +33,26 @@
             {
                 "command": "smat.svgSpriteGenerate",
                 "title": "SVG Sprite Generate"
-            }
+            },
+            {
+				"command": "smat.svgSpriteViewer",
+				"title": "SVG Sprite Viewer"
+			}
         ],
         "menus": {
             "explorer/context": [
                 {
                     "when": "explorerResourceIsFolder",
                     "command": "smat.svgSpriteGenerate"
-                }
+                },
+                {
+					"when": "!explorerResourceIsFolder",
+					"command": "smat.svgSpriteViewer"
+				}
             ]
         },
         "configuration": {
-            "title": "SVG Sprite Generator",
+            "title": "SVG Sprite Generator and Viewer",
             "properties": {
                 "svgSpriteGenerator.output.fileName": {
                     "type": "string",

@@ -1,7 +1,7 @@
 node_modules
+.idea
 .vscode
 .gitignore
 test
 .vscode-test/
 *.vsix
-

@@ -1,9 +1,13 @@
+# SVG Sprite Generator and Viewer
+
 ## Features
 
 Fast generation of svg symbol sprite from a group of svg files.  
 The sprite will be created in the same folder as the svg files.  
 The ID for each symbol fit to the name of the file from which it was generated.  
-For example, if the file name is "ico-email.svg", then symbol id="ico-email".  
+For example, if the file name is "ico-email.svg", then symbol id="ico-email".
+
+Optionally, you can view the sprite and copy the icon identifier. 
 
 You can use it like this:
 ```
@@ -16,6 +20,9 @@ You can use it like this:
 ## Screenshots
 
 ![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture.gif)
+
+
+![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-viewer.gif)
 
 
 
@@ -34,8 +41,6 @@ In settings you can:
 For compatibility with old browsers it is recommended to include svg4everybody  
 https://github.com/jonathantneal/svg4everybody
 
-To view the sprite in VSCode, I recommend using this plugin  
-https://marketplace.visualstudio.com/items?itemName=DevEscalus.svg-sprites-viewer
 
 
 
