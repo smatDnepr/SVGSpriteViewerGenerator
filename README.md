@@ -7,7 +7,7 @@ The sprite will be created in the same folder as the svg files.
 The ID for each symbol fit to the name of the file from which it was generated.
 For example, if the file name is "ico-email.svg", then symbol id="ico-email".
 
-In version 2.0 added the ability to view the sprite and copy the icon identifier.
+In version 2.0 added sprite viewer and copy icon id.
 
 You can use it like this:
 

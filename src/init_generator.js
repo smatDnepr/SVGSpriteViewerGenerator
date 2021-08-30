@@ -28,6 +28,7 @@ const initGenerator = (fsPath) => {
     svgFiles.forEach((path) => {
         let fileName = path.replace(/.+[\\/](.*)\.svg/gi, '$1').replace(/\s/gi, '-');
         let svgString = fs.readFileSync(path).toString();
+        let svgHeader = svgString.match(/<svg[^>]+>/gi) ? svgString.match(/<svg[^>]+>/gi)[0] : '';
         let svgHTML = svgString.match(/<svg.+<\/svg>/gis) ? svgString.match(/<svg.+<\/svg>/gis)[0] : '';
         let style = svgString.match(/<style[^>].+<\/style>/gis) ? svgString.match(/<style[^>].+<\/style>/gis)[0] : '';
         let viewBox = svgString.replace(/.*viewBox\s?=["]([^"]+)["].*/gis, '$1');
@@ -37,6 +38,20 @@ const initGenerator = (fsPath) => {
 
         // если в текущем файле есть symbol - значит это уже спрайт и мы его пропускаем
         if (svgString.toLowerCase().indexOf('symbol'.toLowerCase()) > -1) return false;
+
+        svgHeader = svgHeader.replace(/[\r\n\t\s]+/g, ' ');
+
+        svgHeaderX = svgHeader.match(/( x=")([^"]+)(")/i)
+            ? 'x="' + svgString.match(/( x=")([^"]+)(")/i)[2] + '"'
+            : 'x="0px"';
+
+        svgHeaderY = svgHeader.match(/( y=")([^"]+)(")/i)
+            ? 'y="' + svgString.match(/( y=")([^"]+)(")/i)[2] + '"'
+            : 'y="0px"';
+
+        svgHeaderXmlSpace = svgHeader.match(/( xml:space=")([^"]+)(")/i)
+            ? 'xml:space="' + svgString.match(/( xml:space=")([^"]+)(")/i)[2] + '"'
+            : '';
 
         // обрабатываем все css-классы данного SVG
         if (style.length && style.match(/(\.[\w_-]+)(\s*{)/gis).length) {
@@ -75,15 +90,18 @@ const initGenerator = (fsPath) => {
         let symbolInnerHtml = svgHTML.replace(/.*<svg[^>]+>(.+)<\/svg>/gis, '$1');
 
         // убрать разрывы строки внутри path
-        symbolInnerHtml = symbolInnerHtml.replace(/[\r\n]+\s*(\w)/g, '$1');
+        symbolInnerHtml = symbolInnerHtml.replace(/[\r\n]+\s*(\w)/g, ' $1');
         symbolInnerHtml = symbolInnerHtml.replace(/[\r\n]+\s*"/g, ' "');
         symbolInnerHtml = symbolInnerHtml.replace(/"[\r\n]+\s*\/>/g, '"/>');
 
         // убрать лишние переводы строки
         symbolInnerHtml = symbolInnerHtml.replace(/>([\r\n])+\s*</g, '>$1<').trim();
 
+        // заменить внутри строк несколько пробелов на один
+        symbolInnerHtml = symbolInnerHtml.replace(/(["\d\w])[\s\t]+(["\d\w])/gi, '$1 $2');
+
         // формируем symbol
-        symbol = `<symbol xmlns="http://www.w3.org/2000/svg" id="${fileName}" viewBox="${viewBox}">
+        symbol = `<symbol id="${fileName}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="${viewBox}" ${svgHeaderX}  ${svgHeaderY} ${svgHeaderXmlSpace}>
                       ${symbolInnerHtml}
                   </symbol>`;
 
@@ -91,7 +109,7 @@ const initGenerator = (fsPath) => {
     });
 
     let sprite =
-        '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0" height="0" fill="none" style="visibility: hidden; position: absolute;" aria-hidden="true">' +
+        '<svg width="0" height="0" fill="none" style="visibility: hidden; position: absolute;" aria-hidden="true">' +
         '\n' +
         symbolList.join('\n') +
         '\n' +
