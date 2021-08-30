@@ -83,7 +83,7 @@ const initGenerator = (fsPath) => {
         symbolInnerHtml = symbolInnerHtml.replace(/>([\r\n])+\s*</g, '>$1<').trim();
 
         // формируем symbol
-        symbol = `<symbol id="${fileName}" viewBox="${viewBox}">
+        symbol = `<symbol xmlns="http://www.w3.org/2000/svg" id="${fileName}" viewBox="${viewBox}">
                       ${symbolInnerHtml}
                   </symbol>`;
 
