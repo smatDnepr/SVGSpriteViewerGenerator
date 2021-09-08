@@ -14,19 +14,19 @@ const initViewer = (fsPath) => {
         enableScripts: true,
     });
 
-    const svgString = [
-        ...spriteContent
-            .replace(/[\r\n]+\s*/g, ' ')
-            .replace(/\s+/g, ' ')
-            .matchAll(/<symbol .+?<\/symbol>/gis),
-    ]
-        .map((item) => {
+    const svgString = JSON.stringify(
+        [
+            ...spriteContent
+                .replace(/[\r\n]+\s*/g, ' ')
+                .replace(/\s+/g, ' ')
+                .matchAll(/<symbol .+?<\/symbol>/gis),
+        ].map((item) => {
             return item
                 .toString()
                 .replaceAll('symbol', 'svg')
                 .replaceAll('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ');
         })
-        .join('|||');
+    );
 
     currentPanel.webview.html = setWebviewContent(svgString);
 };

@@ -64,28 +64,26 @@ const setWebviewContent = function (svgString) {
     </head>
     <body>
         <div id="items_list"></div>
-
         <script>
-        const itemsList = document.querySelector('#items_list');
+            const itemsList = document.querySelector('#items_list');
+            const svgArray = ${svgString};
 
-        const svgArray = '${svgString}'.split('|||');
+            for (let i = 0; i < svgArray.length; i++) {
+                let svgDiv = document.createElement('div');
+                svgDiv.classList.add('item');
+                svgDiv.innerHTML = svgArray[i];
 
-        for (let i = 0; i < svgArray.length; i++) {
-            let svgDiv = document.createElement('div');
-            svgDiv.classList.add('item');
-            svgDiv.innerHTML = svgArray[i];
+                let id = svgDiv.firstElementChild.getAttribute('id');
+                svgDiv.setAttribute('title', id);
+                svgDiv.setAttribute('data-id', id);
 
-            let id = svgDiv.firstElementChild.getAttribute('id');
-            svgDiv.setAttribute('title', id);
-            svgDiv.setAttribute('data-id', id);
+                svgDiv.addEventListener('click', async function () {
+                    navigator.clipboard.writeText(this.getAttribute('data-id'));
+                });
 
-            svgDiv.addEventListener('click', async function () {
-                navigator.clipboard.writeText(this.getAttribute('data-id'));
-            });
-
-            itemsList.appendChild(svgDiv);
-        }
-    </script>
+                itemsList.appendChild(svgDiv);
+            }
+        </script>
     </body>
     </html>`;
 };
