@@ -63,26 +63,34 @@ const setWebviewContent = function (svgString) {
         </style>
     </head>
     <body>
-        <div id="items_list"></div>
         <script>
-            const itemsList = document.querySelector('#items_list');
+            const itemsList = document.createElement('div');
+            itemsList.setAttribute('id', 'items_list');
+
             const svgArray = ${svgString};
 
             for (let i = 0; i < svgArray.length; i++) {
-                let svgDiv = document.createElement('div');
+                const svgDiv = document.createElement('div');
                 svgDiv.classList.add('item');
                 svgDiv.innerHTML = svgArray[i];
 
-                let id = svgDiv.firstElementChild.getAttribute('id');
+                const id = svgDiv.firstElementChild.getAttribute('id');
                 svgDiv.setAttribute('title', id);
                 svgDiv.setAttribute('data-id', id);
 
-                svgDiv.addEventListener('click', async function () {
+                svgDiv.addEventListener('contextmenu', async function(e) {
+                    e.preventDefault();
+                    navigator.clipboard.writeText(this.getAttribute('data-id'));
+                });
+
+                svgDiv.addEventListener('click', async function() {
                     navigator.clipboard.writeText(this.getAttribute('data-id'));
                 });
 
                 itemsList.appendChild(svgDiv);
             }
+
+            document.body.insertBefore(itemsList, document.body.firstChild);
         </script>
     </body>
     </html>`;
