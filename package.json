@@ -46,7 +46,7 @@
                     "command": "smat.svgSpriteGenerate"
                 },
                 {
-					"when": "!explorerResourceIsFolder",
+					"when": "resourceLangId == xml",
 					"command": "smat.svgSpriteViewer"
 				}
             ]
