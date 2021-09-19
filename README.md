@@ -1,4 +1,4 @@
-# SVG Sprite Generator and Viewer
+# SVG Sprite Generator and Viewer for VS Code
 
 ## Features
 
@@ -17,15 +17,19 @@ You can use it like this:
 </svg>
 ```
 
+## Installing
+
+This extension is available for free in the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=smatDnepr.svg-sprite-generator)
+
 ## Screenshots
 
 ### Generator:
 
-![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture.gif)
+![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-generator-2.gif)
 
 ### Viewer:
 
-![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-viewer-loop.gif)
+![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-viewer-2.gif)
 
 ## Extension Settings
 

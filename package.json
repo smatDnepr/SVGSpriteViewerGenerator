@@ -9,7 +9,7 @@
     "displayName": "SVG Sprite Generator and Viewer",
     "description": "Generate svg-sprite from many svg-files and view sprite",
     "icon": "images/logo.png",
-    "version": "2.0.4",
+    "version": "2.0.5",
     "engines": {
         "vscode": "^1.57.0"
     },
@@ -32,11 +32,11 @@
         "commands": [
             {
                 "command": "smat.svgSpriteGenerate",
-                "title": "SVG Sprite Generator"
+                "title": "Generate SVG Sprite"
             },
             {
 				"command": "smat.svgSpriteViewer",
-				"title": "SVG Sprite Viewer"
+				"title": "View SVG Sprite"
 			}
         ],
         "menus": {

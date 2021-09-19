@@ -101,7 +101,7 @@ const initGenerator = (fsPath) => {
         symbolInnerHtml = symbolInnerHtml.replace(/(["\d\w])[\s\t]+(["\d\w])/gi, '$1 $2');
 
         // формируем symbol
-        symbol = `<symbol id="${fileName}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="${viewBox}" ${svgHeaderX}  ${svgHeaderY} ${svgHeaderXmlSpace}>
+        symbol = `<symbol id="${fileName}" xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" ${svgHeaderX}  ${svgHeaderY} ${svgHeaderXmlSpace}>
                       ${symbolInnerHtml}
                   </symbol>`;
 
@@ -122,6 +122,7 @@ const initGenerator = (fsPath) => {
         sprite = beautify(sprite, {
             indent_size: 4,
         });
+        sprite = sprite.replace(/}([\r\n])+/gm, '}$1');
     }
 
     fs.writeFile(curDir + '/' + FILE_NAME + '.svg', sprite, function (err) {
