@@ -25,11 +25,11 @@ This extension is available for free in the [Visual Studio Code Marketplace](htt
 
 ### Generator:
 
-![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-generator-2.gif)
+![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-generator-v2.gif)
 
 ### Viewer:
 
-![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-viewer-2.gif)
+![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-viewer-v2.gif)
 
 ## Extension Settings
 
