@@ -12,6 +12,7 @@ const initGenerator = (fsPath) => {
         .getConfiguration('svgSpriteGenerator')
         ['output']['fileName'].replace(/[^-_.A-Za-z0-9]/g, '');
     const MAX_COMPRES = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['maximumCompression'];
+    const SHOW_INFO_MESSAGE = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['showInfoMessage'];
 
     // если фалы лежат в 'node_modules' - не обрабатываем и выходим
     if (fsPath.indexOf('node_modules') > -1) return;
@@ -127,7 +128,10 @@ const initGenerator = (fsPath) => {
 
     fs.writeFile(curDir + '/' + FILE_NAME + '.svg', sprite, function (err) {
         if (err) throw err;
-        vscode.window.showInformationMessage(`File "${FILE_NAME}.svg" saved to the current folder`);
+
+        if (SHOW_INFO_MESSAGE) {
+            vscode.window.showInformationMessage(`File "${FILE_NAME}.svg" saved to the current folder`);
+        }
     });
 };
 

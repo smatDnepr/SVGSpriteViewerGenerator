@@ -9,7 +9,7 @@
     "displayName": "SVG Sprite Generator and Viewer",
     "description": "Generate svg-sprite from many svg-files and view sprite",
     "icon": "images/logo.png",
-    "version": "2.0.6",
+    "version": "2.0.7",
     "engines": {
         "vscode": "^1.57.0"
     },
@@ -63,6 +63,11 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Maximum compression of the output file"
+                },
+                "svgSpriteGenerator.output.showInfoMessage": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Show info message after sprite generation"
                 }
             }
         }

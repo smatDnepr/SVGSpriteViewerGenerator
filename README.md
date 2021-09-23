@@ -37,6 +37,7 @@ In settings you can:
 
 -   set output file name
 -   set maximum compression for output file
+-   show info message after sprite generation
 
 ![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/feature-3.png)
 
