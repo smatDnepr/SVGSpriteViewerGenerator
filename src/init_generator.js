@@ -31,7 +31,11 @@ const initGenerator = (fsPath) => {
         let svgString = fs.readFileSync(path).toString();
         let svgHeader = svgString.match(/<svg[^>]+>/gi) ? svgString.match(/<svg[^>]+>/gi)[0] : '';
         let svgHTML = svgString.match(/<svg.+<\/svg>/gis) ? svgString.match(/<svg.+<\/svg>/gis)[0] : '';
-        let style = svgString.match(/<style[^>].+<\/style>/gis) ? svgString.match(/<style[^>].+<\/style>/gis)[0] : '';
+
+        let style = svgString.match(/<style[^>]*>.+<\/style>/gis)
+            ? svgString.match(/<style[^>]*>.+<\/style>/gis)[0]
+            : '';
+
         let viewBox = svgString.replace(/.*viewBox\s?=["]([^"]+)["].*/gis, '$1');
         let symbol = '';
 
