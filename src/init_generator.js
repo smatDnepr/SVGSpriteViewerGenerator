@@ -67,9 +67,10 @@ const initGenerator = (fsPath) => {
             if (classList.length) {
                 classList.forEach((item) => {
                     let newClass = item + SEPARATOR + fileName;
-                    svgHTML = svgHTML.replace(`${item}{`, `${newClass}{`);
-                    svgHTML = svgHTML.replace(`${item} {`, `${newClass}{`);
-                    svgHTML = svgHTML.replace(new RegExp(`class="${item}"`, 'gis'), `class="${newClass}"`);
+                    svgHTML = svgHTML
+                        .replace(`${item}{`, `${newClass}{`)
+                        .replace(`${item} {`, `${newClass}{`)
+                        .replace(new RegExp(`class="${item}"`, 'gis'), `class="${newClass}"`);
                 });
             }
         } else {
@@ -85,9 +86,10 @@ const initGenerator = (fsPath) => {
             if (idList.length) {
                 idList.forEach((item) => {
                     let newID = item + SEPARATOR + fileName;
-                    svgHTML = svgHTML.replace(new RegExp('id="' + item + '"', 'g'), `id="${newID}"`);
-                    svgHTML = svgHTML.replace(new RegExp('"#' + item + '"', 'g'), `"#${newID}"`);
-                    svgHTML = svgHTML.replace(new RegExp('url[(]#' + item + '[)]', 'g'), `url(#${newID})`);
+                    svgHTML = svgHTML
+                        .replace(new RegExp('id="' + item + '"', 'g'), `id="${newID}"`)
+                        .replace(new RegExp('"#' + item + '"', 'g'), `"#${newID}"`)
+                        .replace(new RegExp('url[(]#' + item + '[)]', 'g'), `url(#${newID})`);
                 });
             }
         }
@@ -95,9 +97,10 @@ const initGenerator = (fsPath) => {
         let symbolInnerHtml = svgHTML.replace(/.*<svg[^>]+>(.+)<\/svg>/gis, '$1');
 
         // убрать разрывы строки внутри path
-        symbolInnerHtml = symbolInnerHtml.replace(/[\r\n]+\s*(\w)/g, ' $1');
-        symbolInnerHtml = symbolInnerHtml.replace(/[\r\n]+\s*"/g, ' "');
-        symbolInnerHtml = symbolInnerHtml.replace(/"[\r\n]+\s*\/>/g, '"/>');
+        symbolInnerHtml = symbolInnerHtml
+            .replace(/[\r\n]+\s*(\w)/g, ' $1')
+            .replace(/[\r\n]+\s*"/g, ' "')
+            .replace(/"[\r\n]+\s*\/>/g, '"/>');
 
         // убрать лишние переводы строки
         symbolInnerHtml = symbolInnerHtml.replace(/>([\r\n])+\s*</g, '>$1<').trim();
@@ -121,8 +124,11 @@ const initGenerator = (fsPath) => {
         '</svg>';
 
     if (MAX_COMPRES) {
-        sprite = sprite.replace(/([\r\n])\s*/gs, '$1');
-        sprite = sprite.replace(/[\r\n]+/gs, '');
+        sprite = sprite
+            .replace(/([\r\n])\s*/gs, '$1')
+            .replace(/[\r\n]+/gs, '')
+            .replace(/\s+/gs, ' ')
+            .replace(/" >/gs, '">');
     } else {
         sprite = beautify(sprite, {
             indent_size: 4,

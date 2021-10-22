@@ -21,7 +21,7 @@ const setWebviewContent = function (svgString) {
                 width: 80px;
 				height: 80px;
                 overflow: hidden;
-				background-color: #ddd;
+				background-color: #eeeeee;
 				border-radius: 4px;
 				display: flex;
 				justify-content: center;
