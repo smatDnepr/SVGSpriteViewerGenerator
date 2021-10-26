@@ -19,14 +19,14 @@ const setWebviewContent = function (svgString) {
                 display: block;
                 position: relative;
                 width: 80px;
-				height: 80px;
+                height: 80px;
                 overflow: hidden;
-				background-color: #eeeeee;
-				border-radius: 4px;
-				display: flex;
-				justify-content: center;
+                background-color: #eeeeee;
+                border-radius: 4px;
+                display: flex;
+                justify-content: center;
                 align-items: center;
-				cursor: pointer;
+                cursor: pointer;
                 border-radius: 6px;
             }
             #items_list .item::after {
@@ -58,7 +58,7 @@ const setWebviewContent = function (svgString) {
             #items_list .item svg {
                 display: block;
                 width: 70px;
-				height: 70px;
+                height: 70px;
             }
         </style>
     </head>
