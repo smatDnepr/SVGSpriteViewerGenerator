@@ -29,34 +29,23 @@ const initGenerator = (fsPath) => {
     svgFiles.forEach((path) => {
         let fileName = path.replace(/.+[\\/](.*)\.svg/gi, '$1').replace(/\s/gi, '-');
         let svgString = fs.readFileSync(path).toString();
-        let svgHeader = svgString.match(/<svg[^>]+>/gi) ? svgString.match(/<svg[^>]+>/gi)[0] : '';
         let svgHTML = svgString.match(/<svg.+<\/svg>/gis) ? svgString.match(/<svg.+<\/svg>/gis)[0] : '';
+        let header = svgString.match(/<svg[^>]+>/gi) ? svgString.match(/<svg[^>]+>/gi)[0] : '';
+        let close = '</symbol>';
 
         let style = svgString.match(/<style[^>]*>.+<\/style>/gis)
             ? svgString.match(/<style[^>]*>.+<\/style>/gis)[0]
             : '';
 
-        let viewBox = svgString.replace(/.*viewBox\s?=["]([^"]+)["].*/gis, '$1');
-        let symbol = '';
+        if (!svgHTML.length ) return false;
 
-        if (!svgHTML.length || !viewBox.length) return false;
-
-        // если в текущем файле есть symbol - значит это уже спрайт и мы его пропускаем
         if (svgString.toLowerCase().indexOf('symbol'.toLowerCase()) > -1) return false;
 
-        svgHeader = svgHeader.replace(/[\r\n\t\s]+/g, ' ');
-
-        svgHeaderX = svgHeader.match(/( x=")([^"]+)(")/i)
-            ? 'x="' + svgString.match(/( x=")([^"]+)(")/i)[2] + '"'
-            : 'x="0px"';
-
-        svgHeaderY = svgHeader.match(/( y=")([^"]+)(")/i)
-            ? 'y="' + svgString.match(/( y=")([^"]+)(")/i)[2] + '"'
-            : 'y="0px"';
-
-        svgHeaderXmlSpace = svgHeader.match(/( xml:space=")([^"]+)(")/i)
-            ? 'xml:space="' + svgString.match(/( xml:space=")([^"]+)(")/i)[2] + '"'
-            : '';
+        header = header
+            .replace(/[\r\n\t\s]+/g, ' ')
+            .replace(/\s?(version|id|xmlns.xlink)="[^"]+"\s?/gi, ' ')
+            .replace(/\s+/g, ' ')
+            .replace(/<svg /, `<symbol id="${fileName}" `);
 
         // обрабатываем все css-классы данного SVG
         if (style.length && style.match(/(\.[\w_-]+)(\s*{)/gis).length) {
@@ -94,34 +83,25 @@ const initGenerator = (fsPath) => {
             }
         }
 
-        let symbolInnerHtml = svgHTML.replace(/.*<svg[^>]+>(.+)<\/svg>/gis, '$1');
-
-        // убрать разрывы строки внутри path
-        symbolInnerHtml = symbolInnerHtml
+        let symbolInnerHtml = svgHTML
+            .replace(/.*<svg[^>]+>(.+)<\/svg>/gis, '$1')
+            // заменить <style type="text/css"> на <style>
+            .replace(/<style\s+type="text\/css">/gi, '<style>')
+            // убрать разрывы строки внутри path
             .replace(/[\r\n]+\s*(\w)/g, ' $1')
             .replace(/[\r\n]+\s*"/g, ' "')
-            .replace(/"[\r\n]+\s*\/>/g, '"/>');
+            .replace(/"[\r\n]+\s*\/>/g, '"/>')
+            // убрать лишние переводы строки
+            .replace(/>([\r\n])+\s*</g, '>$1<')
+            // заменить внутри строк несколько пробелов на один
+            .replace(/(["\d\w])[\s\t]+(["\d\w])/gi, '$1 $2');
 
-        // убрать лишние переводы строки
-        symbolInnerHtml = symbolInnerHtml.replace(/>([\r\n])+\s*</g, '>$1<').trim();
-
-        // заменить внутри строк несколько пробелов на один
-        symbolInnerHtml = symbolInnerHtml.replace(/(["\d\w])[\s\t]+(["\d\w])/gi, '$1 $2');
-
-        // формируем symbol
-        symbol = `<symbol id="${fileName}" xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox}" ${svgHeaderX}  ${svgHeaderY} ${svgHeaderXmlSpace}>
-                      ${symbolInnerHtml}
-                  </symbol>`;
-
-        symbolList.push(symbol);
+        symbolList.push(`${header}${symbolInnerHtml}${close}`);
     });
 
-    let sprite =
-        '<svg width="0" height="0" fill="none" style="visibility: hidden; position: absolute;" aria-hidden="true">' +
-        '\n' +
-        symbolList.join('\n') +
-        '\n' +
-        '</svg>';
+    let sprite = `<svg width="0" height="0" fill="none" style="visibility: hidden; position: absolute;" aria-hidden="true">
+                     ${symbolList.join('\n')}
+                 </svg>`;
 
     if (MAX_COMPRES) {
         sprite = sprite
