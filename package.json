@@ -9,7 +9,7 @@
     "displayName": "SVG Sprite Generator and Viewer",
     "description": "Generate svg-sprite from many svg-files and view sprite",
     "icon": "images/logo.png",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "engines": {
         "vscode": "^1.57.0"
     },
@@ -63,6 +63,26 @@
                     "type": "boolean",
                     "default": false,
                     "description": "Maximum compression of the output file"
+                },
+                "svgSpriteGenerator.output.removeComments": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Remove comments"
+                },
+                "svgSpriteGenerator.output.removeMetadata": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Remove <metadata>"
+                },
+                "svgSpriteGenerator.output.removeTitle": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Remove <title>"
+                },
+                "svgSpriteGenerator.output.removeDesc": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Remove <desc>"
                 },
                 "svgSpriteGenerator.output.showInfoMessage": {
                     "type": "boolean",

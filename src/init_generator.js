@@ -11,6 +11,10 @@ const initGenerator = (fsPath) => {
     const FILE_NAME = vscode.workspace
         .getConfiguration('svgSpriteGenerator')
         ['output']['fileName'].replace(/[^-_.A-Za-z0-9]/g, '');
+    const REMOVE_COMMENTS = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['removeComments'];
+    const REMOVE_METADATA = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['removeMetadata'];
+    const REMOVE_TITLE = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['removeTitle'];
+    const REMOVE_DESC = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['removeDesc'];
     const MAX_COMPRES = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['maximumCompression'];
     const SHOW_INFO_MESSAGE = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['showInfoMessage'];
 
@@ -30,14 +34,14 @@ const initGenerator = (fsPath) => {
         let fileName = path.replace(/.+[\\/](.*)\.svg/gi, '$1').replace(/\s/gi, '-');
         let svgString = fs.readFileSync(path).toString();
         let svgHTML = svgString.match(/<svg.+<\/svg>/gis) ? svgString.match(/<svg.+<\/svg>/gis)[0] : '';
-        let header = svgString.match(/<svg[^>]+>/gi) ? svgString.match(/<svg[^>]+>/gi)[0] : '';
+        let header = svgString.match(/<svg[^>]+>/gi) ? svgString.match(/<svg[^>]+>/gi)[0] : '<symbol>';
         let close = '</symbol>';
 
         let style = svgString.match(/<style[^>]*>.+<\/style>/gis)
             ? svgString.match(/<style[^>]*>.+<\/style>/gis)[0]
             : '';
 
-        if (!svgHTML.length ) return false;
+        if (!svgHTML.length) return false;
 
         if (svgString.toLowerCase().indexOf('symbol'.toLowerCase()) > -1) return false;
 
@@ -83,8 +87,14 @@ const initGenerator = (fsPath) => {
             }
         }
 
-        let symbolInnerHtml = svgHTML
-            .replace(/.*<svg[^>]+>(.+)<\/svg>/gis, '$1')
+        let body = svgHTML.replace(/.*<svg[^>]+>(.+)<\/svg>/gis, '$1');
+
+        if (REMOVE_COMMENTS) body = body.replace(/<!--.*?-->/gis, '');
+        if (REMOVE_METADATA) body = body.replace(/<metadata>.*?<\/metadata>/gis, '');
+        if (REMOVE_TITLE) body = body.replace(/<title>.*?<\/title>/gis, '');
+        if (REMOVE_DESC) body = body.replace(/<desc>.*?<\/desc>/gis, '');
+
+        body = body
             // заменить <style type="text/css"> на <style>
             .replace(/<style\s+type="text\/css">/gi, '<style>')
             // убрать разрывы строки внутри path
@@ -92,16 +102,16 @@ const initGenerator = (fsPath) => {
             .replace(/[\r\n]+\s*"/g, ' "')
             .replace(/"[\r\n]+\s*\/>/g, '"/>')
             // убрать лишние переводы строки
-            .replace(/>([\r\n])+\s*</g, '>$1<')
+            .replace(/([\r\n])+/g, ' ')
             // заменить внутри строк несколько пробелов на один
             .replace(/(["\d\w])[\s\t]+(["\d\w])/gi, '$1 $2');
 
-        symbolList.push(`${header}${symbolInnerHtml}${close}`);
+        symbolList.push(`${header}${body}${close}`);
     });
 
     let sprite = `<svg width="0" height="0" fill="none" style="visibility: hidden; position: absolute;" aria-hidden="true">
                      ${symbolList.join('\n')}
-                 </svg>`;
+                  </svg>`;
 
     if (MAX_COMPRES) {
         sprite = sprite

@@ -37,9 +37,13 @@ In settings you can:
 
 -   set output file name
 -   set maximum compression for output file
+-   remove Comments
+-   remove Desk
+-   remove Metadata
+-   remove Title
 -   show info message after sprite generation
 
-![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/settings.png)
+![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/settings2.png)
 
 ## Recommendation
 
