@@ -9,7 +9,7 @@
     "displayName": "SVG Sprite Generator and Viewer",
     "description": "Generate and View SVG Sprite",
     "icon": "images/logo.png",
-    "version": "2.3.0",
+    "version": "2.3.2",
     "engines": {
         "vscode": "^1.57.0"
     },
@@ -46,9 +46,21 @@
                     "command": "smat.svgSpriteGenerate"
                 },
                 {
-					"when": "resourceLangId == xml",
+					"when": "resourceFilename =~ /.+\\.svg$/i",
 					"command": "smat.svgSpriteViewer"
 				}
+            ],
+            "editor/context": [
+                {
+					"when": "resourceFilename =~ /.+\\.svg$/i",
+					"command": "smat.svgSpriteViewer"
+				}
+            ],
+            "editor/title/context": [
+                {
+                    "when": "resourceFilename =~ /.+\\.svg$/i",
+					"command": "smat.svgSpriteViewer"
+                }
             ]
         },
         "configuration": {

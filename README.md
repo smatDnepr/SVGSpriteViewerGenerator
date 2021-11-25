@@ -31,17 +31,7 @@ This extension is available for free in the [Visual Studio Code Marketplace](htt
 
 ![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-viewer-v2.gif)
 
-## Extension Settings
-
-In settings you can:
-
--   set output file name
--   set maximum compression for output file
--   remove Comments
--   remove Desk
--   remove Metadata
--   remove Title
--   show info message after sprite generation
+### Settings:
 
 ![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/settings2.png)
 
