@@ -7,7 +7,7 @@
     },
     "repository": "https://github.com/smatDnepr/SVG-Sprite-Generator",
     "displayName": "SVG Sprite Generator and Viewer",
-    "description": "Generate svg-sprite from many svg-files and view sprite",
+    "description": "Generate and View SVG Sprite",
     "icon": "images/logo.png",
     "version": "2.3.0",
     "engines": {
