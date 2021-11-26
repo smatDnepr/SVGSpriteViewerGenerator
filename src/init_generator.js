@@ -8,9 +8,7 @@ const initGenerator = (fsPath) => {
     const SEPARATOR = '__';
     const curDir = fsPath.replace(/\\/g, '/');
     const filesInDir = fs.readdirSync(curDir);
-    const FILE_NAME = vscode.workspace
-        .getConfiguration('svgSpriteGenerator')
-        ['output']['fileName'].replace(/[^-_.A-Za-z0-9]/g, '');
+    const FILE_NAME = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['fileName'].replace(/[^-_.A-Za-z0-9]/g, '');
     const REMOVE_COMMENTS = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['removeComments'];
     const REMOVE_METADATA = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['removeMetadata'];
     const REMOVE_TITLE = vscode.workspace.getConfiguration('svgSpriteGenerator')['output']['removeTitle'];

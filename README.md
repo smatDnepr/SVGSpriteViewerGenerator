@@ -29,7 +29,7 @@ This extension is available for free in the [Visual Studio Code Marketplace](htt
 
 ### Viewer:
 
-![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-viewer-v2.gif)
+![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-viewer-v23.gif)
 
 ### Settings:
 

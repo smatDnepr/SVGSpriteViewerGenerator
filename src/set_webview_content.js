@@ -19,6 +19,10 @@ const setWebviewContent = function (svgString) {
             }
             .svg_viewer__header {
                 flex-shrink: 0;
+                width: 100%;
+                overflow-y: scroll;
+            }
+            .svg_viewer__header-inner {
                 padding-bottom: 16px;
             }
             .svg-viewer__content {
@@ -28,18 +32,21 @@ const setWebviewContent = function (svgString) {
                 flex-shrink: 0;
                 flex-basis: auto;
             }
-            .svg-viewer__list {
+            .svg-viewer__content-inner {
                 position: absolute;
-                display: flex;
-                flex-wrap: wrap;
-                gap: 6px;
-                align-items: flex-start;
-                align-content: flex-start;
                 top: 0;
                 left: 0;
                 width: 100%;
                 height: 100%;
                 overflow-y: scroll;
+            }
+            .svg-viewer__list {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: flex-start;
+                align-content: flex-start;
+                margin-left: auto;
+                margin-right: auto;
             }
             .svg-viewer__item {
                 display: block;
@@ -50,16 +57,17 @@ const setWebviewContent = function (svgString) {
                 background-color: #f2f2f2;
                 border-radius: 4px;
                 display: flex;
+                margin: 0 3px 6px 3px;
                 justify-content: center;
                 align-items: center;
                 cursor: pointer;
                 border-radius: 6px;
                 transition: background-color 0.2s ease 0s;
             }
-            .svg-viewer__item.light {
+            .svg-viewer__list.light .svg-viewer__item {
                 background-color: #f2f2f2;
             }
-            .svg-viewer__item.dark {
+            .svg-viewer__list.dark .svg-viewer__item {
                 background-color: #262626;
             }
             .svg-viewer__item::after {
@@ -134,16 +142,18 @@ const setWebviewContent = function (svgString) {
     </head>
     <body>
         <div class="svg_viewer">
-
             <div class="svg_viewer__header">
-                <p class="svg_viewer__toggle-hint">Change background of elements:</p>
-                <div class="svg_viewer__togglers">
-                    <button class="btn-toggle active" data-bgr="light">Light</button>
-                    <button class="btn-toggle" data-bgr="dark">Dark</button>
+                <div class="svg_viewer__header-inner">
+                    <p class="svg_viewer__toggle-hint">Change background of elements:</p>
+                    <div class="svg_viewer__togglers">
+                        <button class="btn-toggle active" data-bgr="light">Light</button>
+                        <button class="btn-toggle" data-bgr="dark">Dark</button>
+                    </div>
                 </div>
             </div>
-
-            <div class="svg-viewer__content"></div>
+            <div class="svg-viewer__content">
+                <div class="svg-viewer__content-inner"></div>
+            </div>
         </div>
 
         <script>
@@ -173,25 +183,31 @@ const setWebviewContent = function (svgString) {
                 itemsList.appendChild(svgDiv);
             }
 
-            const content = document.querySelector('.svg-viewer__content');
-            content.insertBefore(itemsList, null);
+            document.querySelector('.svg-viewer__content-inner').insertBefore(itemsList, null);
 
-            const btnToggle = document.querySelectorAll('.btn-toggle');
-            btnToggle.forEach(btn => {
+            setWidthItemsList();
+
+            document.querySelectorAll('.btn-toggle').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    btn.classList.add('active');
-
-                    [...btn.parentNode.children].filter((child) => child !== btn).forEach(el => {
+                    [...btn.parentNode.children].forEach(el => {
                         el.classList.remove('active');
                     });
 
-                    const items = content.querySelectorAll('.svg-viewer__item');
-                    items.forEach(item => {
-                        item.classList.remove('light', 'dark');
-                        item.classList.add(btn.dataset.bgr);
-                    });
+                    btn.classList.add('active');
+
+                    itemsList.classList.remove('light', 'dark');
+                    itemsList.classList.add(btn.dataset.bgr);
                 });
             });
+
+            ['load', 'resize'].forEach(function(e) {
+                window.addEventListener(e, setWidthItemsList);
+            });
+
+            function setWidthItemsList() {
+                itemsList.style.maxWidth = '';
+                itemsList.style.maxWidth = Math.floor(itemsList.offsetWidth / 86) * 86 + "px";
+            }
         </script>
     </body>
     </html>`;
