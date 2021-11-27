@@ -9,7 +9,7 @@
     "displayName": "SVG Sprite Generator and Viewer",
     "description": "Generate and View SVG Sprite",
     "icon": "images/logo.png",
-    "version": "2.3.3",
+    "version": "2.3.4",
     "engines": {
         "vscode": "^1.57.0"
     },

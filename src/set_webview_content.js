@@ -20,7 +20,6 @@ const setWebviewContent = function (svgString) {
             .svg_viewer__header {
                 flex-shrink: 0;
                 width: 100%;
-                overflow-y: scroll;
             }
             .svg_viewer__header-inner {
                 padding-bottom: 16px;
@@ -38,26 +37,21 @@ const setWebviewContent = function (svgString) {
                 left: 0;
                 width: 100%;
                 height: 100%;
+                padding: 0 5px;
                 overflow-y: scroll;
             }
             .svg-viewer__list {
-                display: flex;
-                flex-wrap: wrap;
-                align-items: flex-start;
-                align-content: flex-start;
-                margin-left: auto;
-                margin-right: auto;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                gap: 6px;
             }
             .svg-viewer__item {
-                display: block;
+                display: flex;
                 position: relative;
-                width: 80px;
                 height: 80px;
                 overflow: hidden;
                 background-color: #f2f2f2;
                 border-radius: 4px;
-                display: flex;
-                margin: 0 3px 6px 3px;
                 justify-content: center;
                 align-items: center;
                 cursor: pointer;
@@ -185,29 +179,18 @@ const setWebviewContent = function (svgString) {
 
             document.querySelector('.svg-viewer__content-inner').insertBefore(itemsList, null);
 
-            setWidthItemsList();
-
             document.querySelectorAll('.btn-toggle').forEach(btn => {
                 btn.addEventListener('click', function() {
-                    [...btn.parentNode.children].forEach(el => {
-                        el.classList.remove('active');
+                    [...btn.parentNode.children].forEach((el) => {
+                        el === btn
+                            ? el.classList.add('active')
+                            : el.classList.remove('active');
                     });
-
-                    btn.classList.add('active');
 
                     itemsList.classList.remove('light', 'dark');
                     itemsList.classList.add(btn.dataset.bgr);
                 });
             });
-
-            ['load', 'resize'].forEach(function(e) {
-                window.addEventListener(e, setWidthItemsList);
-            });
-
-            function setWidthItemsList() {
-                itemsList.style.maxWidth = '';
-                itemsList.style.maxWidth = Math.floor(itemsList.offsetWidth / 86) * 86 + "px";
-            }
         </script>
     </body>
     </html>`;

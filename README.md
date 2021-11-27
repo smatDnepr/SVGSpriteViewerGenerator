@@ -39,3 +39,7 @@ This extension is available for free in the [Visual Studio Code Marketplace](htt
 
 For compatibility with old browsers it is recommended to include svg4everybody
 https://github.com/jonathantneal/svg4everybody
+
+## Buy coffee for the author 🙂
+
+<a href="https://www.buymeacoffee.com/smatdnepr" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
