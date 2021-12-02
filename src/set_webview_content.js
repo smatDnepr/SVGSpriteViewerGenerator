@@ -165,13 +165,11 @@ const setWebviewContent = function (svgString) {
                 svgDiv.setAttribute('title', id);
                 svgDiv.setAttribute('data-id', id);
 
-                svgDiv.addEventListener('contextmenu', async function(e) {
-                    e.preventDefault();
-                    navigator.clipboard.writeText(this.getAttribute('data-id'));
-                });
-
-                svgDiv.addEventListener('click', async function() {
-                    navigator.clipboard.writeText(this.getAttribute('data-id'));
+                ['click', 'contextmenu'].forEach(function(eName) {
+                    svgDiv.addEventListener(eName, (e) => {
+                        e.preventDefault();
+                        navigator.clipboard.writeText(e.target.getAttribute('data-id'));
+                    });
                 });
 
                 itemsList.appendChild(svgDiv);
