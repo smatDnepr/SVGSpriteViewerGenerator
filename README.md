@@ -1,41 +1,38 @@
-# SVG Sprite Generator and Viewer for VS Code
-
 ## Features
 
-Fast generation of svg symbol sprite from a group of svg files.
+Easy generation and view of svg sprite from a group of svg files.
 The sprite will be created in the same folder as the svg files.
 The ID for each symbol fit to the name of the file from which it was generated.
-For example, if the file name is "ico-email.svg", then symbol id="ico-email".
-
-In version 2.0 added sprite viewer and copy icon id.
-
-You can use it like this:
-
-```
-<svg class="ico">
-    <use xlink:href="/images/_sprite.svg#ico-email"></use>
-</svg>
-```
+So if the file name is "ico-email.svg" then symbol id="ico-email".
+The benefit of using a sprite from a file is that browsers cache it.
 
 ## Installing
 
-This extension is available for free in the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=smatDnepr.svg-sprite-generator)
+This extension is available for free in the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=smatDnepr.svg-sprite-viewer-generator)
 
 ## Screenshots
-
-### Generator:
-
-![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-generator-v2.gif)
 
 ### Viewer:
 
 ![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-viewer-v23.gif)
+
+### Generator:
+
+![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-generator-v2.gif)
 
 ### Settings:
 
 ![Image](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/settings2.png)
 
 ## Recommendation
+
+In layout, you can use sprite it like this:
+
+```
+<svg class="ico">
+    <use xlink:href="/images/_sprite.svg#ico-email"></use>
+</svg>
+```
 
 For compatibility with old browsers it is recommended to include svg4everybody
 https://github.com/jonathantneal/svg4everybody
