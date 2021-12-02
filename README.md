@@ -12,13 +12,13 @@ This extension is available for free in the [Visual Studio Code Marketplace](htt
 
 ## Screenshots
 
-### Viewer:
-
-![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-viewer-v23.gif)
-
 ### Generator:
 
 ![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-generator-v2.gif)
+
+### Viewer:
+
+![Screenshot](https://raw.githubusercontent.com/smatDnepr/SVG-Sprite-Generator/master/images/capture-viewer-v23.gif)
 
 ### Settings:
 

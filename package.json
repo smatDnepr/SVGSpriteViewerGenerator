@@ -7,9 +7,9 @@
     },
     "repository": "https://github.com/smatDnepr/SVGSpriteViewerGenerator",
     "displayName": "SVG Sprite Viewer and Generator",
-    "description": "View and Generate SVG Sprite",
+    "description": "Quickly create and view SVG sprites",
     "icon": "images/logo.png",
-    "version": "2.3.5",
+    "version": "2.3.6",
     "engines": {
         "vscode": "^1.57.0"
     },

@@ -155,7 +155,6 @@ const setWebviewContent = function (svgString) {
             itemsList.setAttribute('class', 'svg-viewer__list');
 
             const svgArray = ${svgString};
-
             for (let i = 0; i < svgArray.length; i++) {
                 const svgDiv = document.createElement('div');
                 svgDiv.classList.add('svg-viewer__item');
