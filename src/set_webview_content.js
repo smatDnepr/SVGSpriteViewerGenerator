@@ -56,7 +56,7 @@ const setWebviewContent = function (svgString) {
                 align-items: center;
                 cursor: pointer;
                 border-radius: 6px;
-                transition: background-color 0.2s ease 0s;
+                transition: background-color 0.15s ease 0s;
             }
             .svg-viewer__list.light .svg-viewer__item {
                 background-color: #f2f2f2;
@@ -82,7 +82,7 @@ const setWebviewContent = function (svgString) {
                 left: 0;
                 width: 100%;
                 height: 100%;
-                transition: all 0.2s ease 0s;
+                transition: all 0.15s ease 0s;
             }
             .svg-viewer__item:hover::after {
                 opacity: 1;

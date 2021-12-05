@@ -4,7 +4,6 @@ Easy generation and view of svg sprite from a group of svg files.
 The sprite will be created in the same folder as the svg files.
 The ID for each symbol fit to the name of the file from which it was generated.
 So if the file name is "ico-email.svg" then symbol id="ico-email".
-The benefit of using a sprite from a file is that browsers cache it.
 
 ## Installing
 
