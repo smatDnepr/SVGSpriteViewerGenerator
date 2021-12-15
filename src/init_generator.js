@@ -118,12 +118,18 @@ const initGenerator = (fsPath) => {
             .replace(/\s+/gs, ' ')
             .replace(/" >/gs, '">')
             .replace(/\s+<\//gs, '</')
-            .replace(/>\s+</gs, '><');
+            .replace(/>\s+</gs, '><')
+            .replace(/"\s+\/>/gs, '"/>')
+            .replace(/\s+"\/>/gs, '"/>');
     } else {
         sprite = beautify(sprite, {
             indent_size: 4,
         });
-        sprite = sprite.replace(/}([\r\n])+/gm, '}$1');
+
+        sprite = sprite
+            .replace(/}([\r\n])+/gm, '}$1')
+            .replace(/"\s+\/>/gs, '"/>')
+            .replace(/\s+"\/>/gs, '"/>');
     }
 
     fs.writeFile(curDir + '/' + FILE_NAME + '.svg', sprite, function (err) {
