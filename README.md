@@ -1,13 +1,13 @@
 ## Features
 
-Easy generation and view of svg sprite from a group of svg files.
+This tool has two parts:
+
+* The **Generator** simply takes a list of SVG files and make a single sprite file from them using \<symbol\> elements.
 The sprite will be created in the same folder as the svg files.
 The ID for each symbol fit to the name of the file from which it was generated.
-So if the file name is "ico-email.svg" then symbol id="ico-email".
+So if the file name is "ico-email.svg" then \<symbol\> id="ico-email"
 
-## Installing
-
-This extension is available for free in the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=smatDnepr.svg-sprite-viewer-generator)
+* The **Viewer** allows you to view all elements of the created sprite and copy the desired identifier.
 
 ## Screenshots
 
@@ -35,3 +35,8 @@ In layout, you can use sprite it like this:
 
 For compatibility with old browsers it is recommended to include svg4everybody
 https://github.com/jonathantneal/svg4everybody
+
+
+## Installing
+
+This extension is available for free in the [Visual Studio Code Marketplace](https://marketplace.visualstudio.com/items?itemName=smatDnepr.svg-sprite-viewer-generator)

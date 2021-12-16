@@ -111,8 +111,8 @@ const initGenerator = (fsPath) => {
                      ${symbolList.join('\n')}
                   </svg>`;
 
-    if (MAX_COMPRES) {
-        sprite = sprite
+    sprite = MAX_COMPRES
+        ? sprite
             .replace(/([\r\n])\s*/gs, '$1')
             .replace(/[\r\n]+/gs, '')
             .replace(/\s+/gs, ' ')
@@ -120,17 +120,11 @@ const initGenerator = (fsPath) => {
             .replace(/\s+<\//gs, '</')
             .replace(/>\s+</gs, '><')
             .replace(/"\s+\/>/gs, '"/>')
-            .replace(/\s+"\/>/gs, '"/>');
-    } else {
-        sprite = beautify(sprite, {
-            indent_size: 4,
-        });
-
-        sprite = sprite
+            .replace(/\s+"\/>/gs, '"/>')
+        : beautify(sprite, { indent_size: 4 })
             .replace(/}([\r\n])+/gm, '}$1')
             .replace(/"\s+\/>/gs, '"/>')
             .replace(/\s+"\/>/gs, '"/>');
-    }
 
     fs.writeFile(curDir + '/' + FILE_NAME + '.svg', sprite, function (err) {
         if (err) throw err;
