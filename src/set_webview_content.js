@@ -1,5 +1,5 @@
 const setWebviewContent = function (svgString) {
-    return `<!DOCTYPE html>
+  return `<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -160,8 +160,11 @@ const setWebviewContent = function (svgString) {
                 svgDiv.classList.add('svg-viewer__item');
                 svgDiv.innerHTML = svgArray[i];
 
-                const id = svgDiv.firstElementChild.getAttribute('id');
-                svgDiv.setAttribute('title', id);
+                const id = svgDiv.firstElementChild.getAttribute("id");
+                const vb = svgDiv.firstElementChild.getAttribute("viewBox");
+                const title = 'id="' + id + '"' + '\\n' + 'viewBox="' + vb + '"';
+
+                svgDiv.setAttribute('title', title);
                 svgDiv.setAttribute('data-id', id);
 
                 ['click', 'contextmenu'].forEach(function(eName) {

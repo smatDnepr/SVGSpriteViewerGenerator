@@ -1,132 +1,132 @@
 {
-    "name": "svg-sprite-viewer-generator",
-    "publisher": "smatDnepr",
-    "author": {
-        "name": "smatDnepr",
-        "email": "smat.dnepr@gmail.com"
-    },
-    "repository": "https://github.com/smatDnepr/SVGSpriteViewerGenerator",
-    "displayName": "SVG Sprite Viewer and Generator",
-    "description": "Quickly create and view SVG sprites",
-    "icon": "images/logo.png",
-    "version": "2.3.9",
-    "engines": {
-        "vscode": "^1.57.0"
-    },
-    "categories": [
-        "Other"
+  "name": "svg-sprite-viewer-generator",
+  "publisher": "smatDnepr",
+  "author": {
+    "name": "smatDnepr",
+    "email": "smat.dnepr@gmail.com"
+  },
+  "repository": "https://github.com/smatDnepr/SVGSpriteViewerGenerator",
+  "displayName": "SVG Sprite Viewer and Generator",
+  "description": "Quickly create and view SVG sprites",
+  "icon": "images/logo.png",
+  "version": "2.4.0",
+  "engines": {
+    "vscode": "^1.57.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "svg",
+    "sprite",
+    "svg sprite",
+    "svg sprite viewer",
+    "svg sprite generator"
+  ],
+  "activationEvents": [
+    "onCommand:smat.svgSpriteGenerate",
+    "onCommand:smat.svgSpriteViewer"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "smat.svgSpriteGenerate",
+        "title": "Generate SVG Sprite"
+      },
+      {
+        "command": "smat.svgSpriteViewer",
+        "title": "View SVG Sprite"
+      }
     ],
-    "keywords": [
-        "svg",
-        "sprite",
-        "svg sprite",
-        "svg sprite viewer",
-        "svg sprite generator"
-    ],
-    "activationEvents": [
-        "onCommand:smat.svgSpriteGenerate",
-        "onCommand:smat.svgSpriteViewer"
-    ],
-    "main": "./dist/extension.js",
-    "contributes": {
-        "commands": [
-            {
-                "command": "smat.svgSpriteGenerate",
-                "title": "Generate SVG Sprite"
-            },
-            {
-                "command": "smat.svgSpriteViewer",
-                "title": "View SVG Sprite"
-            }
-        ],
-        "menus": {
-            "explorer/context": [
-                {
-                    "when": "explorerResourceIsFolder",
-                    "command": "smat.svgSpriteGenerate"
-                },
-                {
-                    "when": "resourceFilename =~ /.+\\.svg$/i",
-                    "command": "smat.svgSpriteViewer"
-                }
-            ],
-            "editor/context": [
-                {
-                    "when": "resourceFilename =~ /.+\\.svg$/i",
-                    "command": "smat.svgSpriteViewer"
-                }
-            ],
-            "editor/title/context": [
-                {
-                    "when": "resourceFilename =~ /.+\\.svg$/i",
-                    "command": "smat.svgSpriteViewer"
-                }
-            ]
+    "menus": {
+      "explorer/context": [
+        {
+          "when": "explorerResourceIsFolder",
+          "command": "smat.svgSpriteGenerate"
         },
-        "configuration": {
-            "title": "SVG Sprite Generator and Viewer",
-            "properties": {
-                "svgSpriteGenerator.output.fileName": {
-                    "type": "string",
-                    "default": "_sprite",
-                    "description": "SVG sprite output filename without extension, eg: '_sprite' or 'sprite'"
-                },
-                "svgSpriteGenerator.output.maximumCompression": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Maximum compression of the output file"
-                },
-                "svgSpriteGenerator.output.removeComments": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Remove comments"
-                },
-                "svgSpriteGenerator.output.removeMetadata": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Remove <metadata>"
-                },
-                "svgSpriteGenerator.output.removeTitle": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Remove <title>"
-                },
-                "svgSpriteGenerator.output.removeDesc": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Remove <desc>"
-                },
-                "svgSpriteGenerator.output.showInfoMessage": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Show info message after sprite generation"
-                }
-            }
+        {
+          "when": "resourceFilename =~ /.+\\.svg$/i",
+          "command": "smat.svgSpriteViewer"
         }
+      ],
+      "editor/context": [
+        {
+          "when": "resourceFilename =~ /.+\\.svg$/i",
+          "command": "smat.svgSpriteViewer"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "when": "resourceFilename =~ /.+\\.svg$/i",
+          "command": "smat.svgSpriteViewer"
+        }
+      ]
     },
-    "scripts": {
-        "lint": "eslint .",
-        "pretest": "npm run lint",
-        "test": "node ./test/runTest.js",
-        "dev": "webpack --mode development",
-        "prod": "webpack --mode production",
-        "watch": "webpack --mode development --watch",
-        "test-compile": "tsc -p ./"
-    },
-    "devDependencies": {
-        "@types/glob": "^7.1.3",
-        "@types/mocha": "^8.2.2",
-        "@types/node": "14.x",
-        "@types/vscode": "^1.57.0",
-        "eslint": "^7.27.0",
-        "glob": "^7.1.7",
-        "mocha": "^8.4.0",
-        "typescript": "^4.3.2",
-        "vscode-test": "^1.5.2",
-        "webpack": "^5.39.1",
-        "webpack-cli": "^4.7.2"
-    },
-    "dependencies": {
-        "js-beautify": "^1.14.0"
+    "configuration": {
+      "title": "SVG Sprite Generator and Viewer",
+      "properties": {
+        "svgSpriteGenerator.output.fileName": {
+          "type": "string",
+          "default": "_sprite",
+          "description": "SVG sprite output filename without extension, eg: '_sprite' or 'sprite'"
+        },
+        "svgSpriteGenerator.output.maximumCompression": {
+          "type": "boolean",
+          "default": false,
+          "description": "Maximum compression of the output file"
+        },
+        "svgSpriteGenerator.output.removeComments": {
+          "type": "boolean",
+          "default": true,
+          "description": "Remove comments"
+        },
+        "svgSpriteGenerator.output.removeMetadata": {
+          "type": "boolean",
+          "default": true,
+          "description": "Remove <metadata>"
+        },
+        "svgSpriteGenerator.output.removeTitle": {
+          "type": "boolean",
+          "default": true,
+          "description": "Remove <title>"
+        },
+        "svgSpriteGenerator.output.removeDesc": {
+          "type": "boolean",
+          "default": true,
+          "description": "Remove <desc>"
+        },
+        "svgSpriteGenerator.output.showInfoMessage": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show info message after sprite generation"
+        }
+      }
     }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "node ./test/runTest.js",
+    "dev": "webpack --mode development",
+    "prod": "webpack --mode production",
+    "watch": "webpack --mode development --watch",
+    "test-compile": "tsc -p ./"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.3",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "14.x",
+    "@types/vscode": "^1.57.0",
+    "eslint": "^7.27.0",
+    "glob": "^7.1.7",
+    "mocha": "^8.4.0",
+    "typescript": "^4.3.2",
+    "vscode-test": "^1.5.2",
+    "webpack": "^5.39.1",
+    "webpack-cli": "^4.7.2"
+  },
+  "dependencies": {
+    "js-beautify": "^1.14.0"
+  }
 }
