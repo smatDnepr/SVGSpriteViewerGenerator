@@ -42,7 +42,7 @@ const setWebviewContent = function (svgString) {
             }
             .svg-viewer__list {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
                 gap: 6px;
             }
             .svg-viewer__item {
@@ -162,7 +162,10 @@ const setWebviewContent = function (svgString) {
 
                 const id = svgDiv.firstElementChild.getAttribute("id");
                 const vb = svgDiv.firstElementChild.getAttribute("viewBox");
-                const title = 'id="' + id + '"' + '\\n' + 'viewBox="' + vb + '"';
+                const w = svgDiv.firstElementChild.getAttribute("width");
+                const h = svgDiv.firstElementChild.getAttribute("height");
+
+                const title = 'id: ' + id + '\\n' + 'viewBox: ' + vb + '\\n' + 'width: ' + w + '\\n' + 'height: ' + h;
 
                 svgDiv.setAttribute('title', title);
                 svgDiv.setAttribute('data-id', id);
